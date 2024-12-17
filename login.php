@@ -1,6 +1,6 @@
 <?php 
     require_once "db_connect.php";
-
+   
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $username_email  = $_POST['usrename-email'];
         $password = $_POST['password'];
@@ -11,8 +11,10 @@
         $user = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if($user) {
+            session_start();
+            $_SESSION['user'] = $user[0]['email'];
             header("Location: welcome.php");
-        }else {
+        } else {
             header("Location: login.php?status=fail");
         }
     }
