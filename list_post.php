@@ -1,19 +1,24 @@
 <?php
     require_once "db_connect.php";
     session_start();
-    $email = $_SESSION['user'];
+    $id = $_SESSION['user'];
 
     // session_destroy();
 
-    if( empty($email) ) header("Location: login.php");
+    if( empty($id) ) header("Location: login.php");
 
     $pdo = db_connect();
 
-    $query = "SELECT `id`, `profile` FROM `users` WHERE `email` = '$email'";
+    $query = "SELECT `id`, `profile` FROM `users` WHERE `id` = '$id'";
 
     $st = $pdo->query(query: $query);
+
+    
     
     $user = $st->fetchAll(2);
+
+    $posts = $pdo->query("SELECT * FROM `post` WHERE `author` = $id");
+    $posts = $posts->fetchAll(2);
     
     
 ?>
@@ -31,7 +36,7 @@
     <div class="container-fluid h-100vh">
         <div class="row">
             <div class="col-sm-0 col-md-0 col-lg-0 col-2 shadow h-100vh bg-white">
-                <a class="px-5 mt-5 d-block" href="">Add Post</a>
+                <a class="px-5 mt-5 d-block" href="add_post.php">Add Post</a>
                 <a class="px-5 mt-5 d-block" href="">View post</a>
                 
             </div>
@@ -54,11 +59,32 @@
                 </div>
 
 
-                <div class="container shadow-lg mt-5 p-5 rounded-3">
+                <div class="container shadow mt-5 p-5 rounded-3">
                     <table class="table">
                         <thead>
-                            
+                            <th>ID</th>
+                            <th>TITLE</th>
+                            <th>THUMBNAIL</th>
+                            <th>Action</th>
                         </thead>
+                        <tbody>
+                            <?php 
+                                foreach($posts as $post) {
+                                    echo '                            
+                                    <tr>
+                                        <td>'.$post['post_id'].'</td>
+                                        <td>'.$post['title'].'</td>
+                                        <td>
+                                            <img width="100" src="http://localhost/myphp/session_user/post_thumbnail/'.$post['thumbnail'].'" alt="">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success">EDIT</button>
+                                            <button class="btn btn-danger">Remove</button>
+                                        </td>
+                                    </tr>';
+                                }
+                            ?>
+                        </tbody>
                     </table>
                 </div>
 

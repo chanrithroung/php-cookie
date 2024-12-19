@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-sm-0 col-md-0 col-lg-0 col-2 shadow h-100vh bg-white">
                 <a class="px-5 mt-5 d-block" href="add_post.php">Add Post</a>
-                <a class="px-5 mt-5 d-block" href="">View post</a>
+                <a class="px-5 mt-5 d-block" href="list_post.php">View post</a>
                 
             </div>
             <div class="col">

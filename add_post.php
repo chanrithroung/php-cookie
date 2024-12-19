@@ -1,7 +1,7 @@
 <?php
     require_once "db_connect.php";
     session_start();
-    $email = $_SESSION['user'];
+    $id = $_SESSION['user'];
 
     // session_destroy();
 
@@ -9,9 +9,10 @@
 
     $pdo = db_connect();
 
-    $query = "SELECT `id`, `profile` FROM `users` WHERE `email` = '$email'";
+    $query = "SELECT `id`, `profile` FROM `users` WHERE `id` = '$id'";
 
     $st = $pdo->query(query: $query);
+    print_r($user);
     
     $user = $st->fetchAll(2);
     
@@ -31,8 +32,8 @@
     <div class="container-fluid h-100vh">
         <div class="row">
             <div class="col-sm-0 col-md-0 col-lg-0 col-2 shadow h-100vh bg-white">
-                <a class="px-5 mt-5 d-block" href="">Add Post</a>
-                <a class="px-5 mt-5 d-block" href="">View post</a>
+                <a class="px-5 mt-5 d-block" href="add_post.php">Add Post</a>
+                <a class="px-5 mt-5 d-block" href="list_post.php">View post</a>
                 
             </div>
             <div class="col">
@@ -55,7 +56,7 @@
 
 
                 <div class="container shadow-lg mt-5 p-5 rounded-3">
-                    <form action="../controllers/addProduct.php" method="post" enctype="multipart/form-data">
+                    <form action="add_post_submit.php" method="post" enctype="multipart/form-data">
                         
                         <div class="row">
                             <div class="col">
