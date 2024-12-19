@@ -12,7 +12,7 @@
 
         if($user) {
             session_start();
-            $_SESSION['user'] = $user[0]['email'];
+            $_SESSION['user'] = $user[0]['id'];
             header("Location: welcome.php");
         } else {
             header("Location: login.php?status=fail");

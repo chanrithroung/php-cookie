@@ -1,15 +1,15 @@
 <?php
     require_once "db_connect.php";
     session_start();
-    $id = $_SESSION['user'];
+    $email = $_SESSION['user'];
 
     // session_destroy();
 
-    if( empty($id) ) header("Location: login.php");
+    if( empty($email) ) header("Location: login.php");
 
     $pdo = db_connect();
 
-    $query = "SELECT `id`, `profile` FROM `users` WHERE `id` = '$id'";
+    $query = "SELECT `id`, `profile` FROM `users` WHERE `email` = '$email'";
 
     $st = $pdo->query(query: $query);
     
@@ -31,7 +31,7 @@
     <div class="container-fluid h-100vh">
         <div class="row">
             <div class="col-sm-0 col-md-0 col-lg-0 col-2 shadow h-100vh bg-white">
-                <a class="px-5 mt-5 d-block" href="add_post.php">Add Post</a>
+                <a class="px-5 mt-5 d-block" href="">Add Post</a>
                 <a class="px-5 mt-5 d-block" href="">View post</a>
                 
             </div>
@@ -52,6 +52,31 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="container shadow-lg mt-5 p-5 rounded-3">
+                    <form action="../controllers/addProduct.php" method="post" enctype="multipart/form-data">
+                        
+                        <div class="row">
+                            <div class="col">
+                                <label for="">Post title</label>
+                                <input name="title" class="form-control" type="text">
+                            </div>
+                            <div class="col">
+                                <label class="" for="thumbnail"><span>Thumbnail</span>  </label> <span class="ms-4 text-danger">Recommend size 300 x 250</span>
+                                <input name="thumbnail" id="thumbnail" class="form-control" type="file">
+                            </div>
+                        </div>
+
+                       
+                        <div class="mt-5">
+                            <button class="btn btn-primary">Save Product</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
             </div>
         </div>
     </div>
