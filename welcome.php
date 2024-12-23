@@ -1,11 +1,12 @@
 <?php
     require_once "db_connect.php";
-    session_start();
-    $id = $_SESSION['user'];
+    
+    if (!isset($_COOKIE['id']) ) {
+        header("Location: login.php");
+    }
 
-    // session_destroy();
+    $id = $_COOKIE['id'];
 
-    if( empty($id) ) header("Location: login.php");
 
     $pdo = db_connect();
 
